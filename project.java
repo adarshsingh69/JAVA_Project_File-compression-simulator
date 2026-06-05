@@ -2,68 +2,62 @@ import java.util.Scanner;
 
 class Compressor {
 
-    // Method to Compress String
-    public String compress(String input) {
-        StringBuilder compressed = new StringBuilder();
-
+    public String compress(String str) {
+        StringBuilder result = new StringBuilder();
         int count = 1;
 
-        for (int i = 0; i < input.length(); i++) {
+        for (int i = 0; i < str.length(); i++) {
 
-            if (i < input.length() - 1 && input.charAt(i) == input.charAt(i + 1)) {
+            if (i < str.length() - 1 && str.charAt(i) == str.charAt(i + 1)) {
                 count++;
             } else {
-                compressed.append(input.charAt(i));
-                compressed.append(count);
+                result.append(str.charAt(i));
+                result.append(count);
                 count = 1;
             }
         }
 
-        return compressed.toString();
+        return result.toString();
     }
 
-    // Method to Decompress String
-    public String decompress(String input) {
-        StringBuilder decompressed = new StringBuilder();
+    public String decompress(String str) {
+        StringBuilder result = new StringBuilder();
 
-        for (int i = 0; i < input.length(); i += 2) {
-            char character = input.charAt(i);
-            int count = Character.getNumericValue(input.charAt(i + 1));
+        for (int i = 0; i < str.length(); i += 2) {
+            char ch = str.charAt(i);
+            int count = Character.getNumericValue(str.charAt(i + 1));
 
             for (int j = 0; j < count; j++) {
-                decompressed.append(character);
+                result.append(ch);
             }
         }
 
-        return decompressed.toString();
+        return result.toString();
     }
 }
 
-
-// Main Class
 public class CompressionDemo {
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter String: ");
+        System.out.print("Enter a string: ");
         String input = sc.nextLine();
 
-        Compressor compressor = new Compressor();
+        Compressor obj = new Compressor();
 
-        String compressed = compressor.compress(input);
-        String decompressed = compressor.decompress(compressed);
+        String compressed = obj.compress(input);
+        String decompressed = obj.decompress(compressed);
 
-        System.out.println("\nOriginal String: " + input);
-        System.out.println("Compressed String: " + compressed);
-        System.out.println("Decompressed String: " + decompressed);
+        System.out.println("Original : " + input);
+        System.out.println("Compressed : " + compressed);
+        System.out.println("Decompressed : " + decompressed);
 
-        // Validation
         if (input.equals(decompressed)) {
-            System.out.println("Compression & Decompression Successful");
+            System.out.println("Success");
         } else {
-            System.out.println("Error in Compression/Decompression");
+            System.out.println("Error");
         }
 
         sc.close();
